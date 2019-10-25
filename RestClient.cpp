@@ -269,12 +269,18 @@ int RestClient::readResponse(String *response)
         started = false;
         HTTP_DEBUG_PRINT("v2.2 \n");
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
+        while (sslClient.connected() && !sslClient.available())
+        {
+            //wait loop
+            delay(1);
+            HTTP_DEBUG_PRINT(".");
+        }
         while (sslClient.connected() && sslClient.available())
         {
-            HTTP_DEBUG_PRINT(".");
+           // HTTP_DEBUG_PRINT(".");
             delay(0);
 
-            if (sslClient.available())
+        //    if (sslClient.available())
             {
                 started = true;
                 HTTP_DEBUG_PRINT(",");
@@ -321,15 +327,6 @@ int RestClient::readResponse(String *response)
                         // you've gotten a character on the current line
                         currentLineIsBlank = false;
                     }
-                }
-            }
-            else
-            {
-                //not avaialble
-                if (started)
-                {
-                    HTTP_DEBUG_PRINT("not available any more \n");
-                    break;
                 }
             }
         }
