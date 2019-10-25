@@ -275,6 +275,7 @@ int RestClient::readResponse(String *response)
             delay(1);
             HTTP_DEBUG_PRINT(".");
         }
+        HTTP_DEBUG_PRINT("\n");
         while (sslClient.connected() && sslClient.available())
         {
            // HTTP_DEBUG_PRINT(".");
@@ -283,7 +284,6 @@ int RestClient::readResponse(String *response)
         //    if (sslClient.available())
             {
                 started = true;
-                HTTP_DEBUG_PRINT(",");
                 delay(0);
                 char c = sslClient.read();
                 HTTP_DEBUG_PRINT(c);
@@ -319,6 +319,7 @@ int RestClient::readResponse(String *response)
 
                     if (c == '\n')
                     {
+                        HTTP_DEBUG_PRINT("\n");
                         // your starting a new line
                         currentLineIsBlank = true;
                     }
