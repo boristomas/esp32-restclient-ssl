@@ -267,7 +267,7 @@ int RestClient::readResponse(String *response)
     if (ssl)
     {
      //   started = false;
-        HTTP_DEBUG_PRINT("v3.01 \n");
+        HTTP_DEBUG_PRINT("v3.02 \n");
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
         while (sslClient.connected() && !sslClient.available())
         {
@@ -333,12 +333,12 @@ int RestClient::readResponse(String *response)
                         currentLineIsBlank = false;
                     }
                 }
-                if (!client.available())
+                if (!sslClient.available())
                 {
                     for (int j = 1; j < 20; j++)
                     {
                         delay(j);
-                        if (client.available())
+                        if (sslClient.available())
                         {
                             break;
                         }
