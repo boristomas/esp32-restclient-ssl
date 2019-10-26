@@ -261,13 +261,13 @@ int RestClient::readResponse(String *response)
     char statusCode[4];
     int i = 0;
     int code = 0;
-    bool started = false;
+ //   bool started = false;
 
     void *http_client;
     if (ssl)
     {
-        started = false;
-        HTTP_DEBUG_PRINT("v2.5 \n");
+     //   started = false;
+        HTTP_DEBUG_PRINT("v2.6 \n");
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
         while (sslClient.connected() && !sslClient.available())
         {
@@ -283,7 +283,7 @@ int RestClient::readResponse(String *response)
 
         //    if (sslClient.available())
             {
-                started = true;
+               // started = true;
                 delay(0);
                 char c = sslClient.read();
                 HTTP_DEBUG_PRINT(c);
