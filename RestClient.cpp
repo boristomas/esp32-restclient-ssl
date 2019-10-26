@@ -267,7 +267,7 @@ int RestClient::readResponse(String *response)
     if (ssl)
     {
      //   started = false;
-        HTTP_DEBUG_PRINT("v2.7 \n");
+        HTTP_DEBUG_PRINT("v2.8 \n");
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
         while (sslClient.connected() && !sslClient.available())
         {
@@ -306,10 +306,17 @@ int RestClient::readResponse(String *response)
 
                 if (httpBody)
                 {
-                    HTTP_DEBUG_PRINT("in http body \n");
+                 //   HTTP_DEBUG_PRINT("in http body \n");
                     //only write response if its not null
                     if (response != NULL)
+                    {
+                    
                         response->concat(c);
+                    }
+                    if(!client.available()){
+                        HTTP_DEBUG_PRINT("in http body break \n");
+                        break;
+                    }
                 }
                 else
                 {
