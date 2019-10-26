@@ -306,6 +306,7 @@ int RestClient::readResponse(String *response)
 
                 if (httpBody)
                 {
+                    HTTP_DEBUG_PRINT("in http body \n");
                     //only write response if its not null
                     if (response != NULL)
                         response->concat(c);
