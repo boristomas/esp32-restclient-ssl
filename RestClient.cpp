@@ -267,7 +267,7 @@ int RestClient::readResponse(String *response)
     if (ssl)
     {
      //   started = false;
-        HTTP_DEBUG_PRINT("v2.8 \n");
+        HTTP_DEBUG_PRINT("v2.99 \n");
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
         while (sslClient.connected() && !sslClient.available())
         {
@@ -276,16 +276,17 @@ int RestClient::readResponse(String *response)
             HTTP_DEBUG_PRINT(".");
         }
         HTTP_DEBUG_PRINT("\n");
-        while (sslClient.connected() /*&& sslClient.available()*/)
+        while (sslClient.connected() && sslClient.available())
         {
            // HTTP_DEBUG_PRINT(".");
-            delay(0);
+            //delay(0);
 
         //    if (sslClient.available())
             {
                // started = true;
-                delay(0);
+                //delay(0);
                 char c = sslClient.read();
+                
                 HTTP_DEBUG_PRINT(c);
 
                 if (c == ' ' && !inStatus)
@@ -310,12 +311,7 @@ int RestClient::readResponse(String *response)
                     //only write response if its not null
                     if (response != NULL)
                     {
-                    
                         response->concat(c);
-                    }
-                    if(!client.available()){
-                        HTTP_DEBUG_PRINT("in http body break \n");
-                        break;
                     }
                 }
                 else
@@ -335,6 +331,17 @@ int RestClient::readResponse(String *response)
                     {
                         // you've gotten a character on the current line
                         currentLineIsBlank = false;
+                    }
+                }
+                if (!client.available())
+                {
+                    for (int j = 1; j < 20; j++)
+                    {
+                        delay(j);
+                        if (client.available())
+                        {
+                            break;
+                        }
                     }
                 }
             }
