@@ -267,7 +267,7 @@ int RestClient::readResponse(String *response)
     if (ssl)
     {
      //   started = false;
-        HTTP_DEBUG_PRINT("v2.6 \n");
+        HTTP_DEBUG_PRINT("v2.7 \n");
         HTTP_DEBUG_PRINT("HTTP: Connect: " + String(sslClient.connected()) + " Available: " + String(sslClient.available()) + "\n");
         while (sslClient.connected() && !sslClient.available())
         {
@@ -276,7 +276,7 @@ int RestClient::readResponse(String *response)
             HTTP_DEBUG_PRINT(".");
         }
         HTTP_DEBUG_PRINT("\n");
-        while (sslClient.connected() && sslClient.available())
+        while (sslClient.connected() /*&& sslClient.available()*/)
         {
            // HTTP_DEBUG_PRINT(".");
             delay(0);
