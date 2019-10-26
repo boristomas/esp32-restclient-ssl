@@ -262,7 +262,8 @@ int RestClient::readResponse(String *response)
     int i = 0;
     int code = 0;
  //   bool started = false;
-    response->clear();
+  //  response->clear();
+  
     void *http_client;
     if (ssl)
     {
